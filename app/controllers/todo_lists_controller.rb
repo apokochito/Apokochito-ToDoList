@@ -4,7 +4,7 @@ class TodoListsController < ApplicationController
   # GET /todo_lists
   # GET /todo_lists.json
   def index
-    @todo_lists = current_user.todo_lists.order(id: :desc)
+    @todo_lists = current_user.todo_lists
     #render json: {todo_lists: @todo_lists.to_json() }
     respond_to do |format|
       format.html
