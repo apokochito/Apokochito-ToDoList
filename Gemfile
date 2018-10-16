@@ -9,6 +9,10 @@ gem 'rails', '~> 5.2.1'
 gem 'sqlite3'
 # Use devise for log in
 gem 'devise'
+# Use Prawn for export PDF
+gem 'prawn'
+gem 'responders'
+gem 'prawn-table'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets

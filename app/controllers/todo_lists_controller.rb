@@ -7,11 +7,16 @@ class TodoListsController < ApplicationController
   def index
     @todo_lists = current_user.todo_lists.order(id: :desc)
     #render json: {todo_lists: @todo_lists.to_json() }
-
     respond_to do |format|
       format.html
       format.csv { send_data @todo_lists.to_csv }
+      format.pdf do
+        pdf = List.Pdf.new(@user)
+        send_data pdf.render, filename: "YourLists.pdf",
+          type: "application/pdf",
+          disposition: "inline"
       end
+    end
   end
 
   # GET /todo_lists/1
@@ -20,7 +25,14 @@ class TodoListsController < ApplicationController
     @todo_items = current_user.todo_lists
     respond_to do |format|
      format.html
-     format.csv { send_data @todo_list.todo_items.to_csv }
+     format.pdf do
+        pdf = ItemPdf.new(@todo_list)
+        send_data pdf.render,
+                filename: 'YourTaks.pdf',
+                type: 'application/pdf',
+                disposition: 'inline'
+      end
+    format.csv { send_data @todo_list.todo_items.to_csv }
     end
   end
 
