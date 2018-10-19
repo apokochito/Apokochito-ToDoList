@@ -6,7 +6,7 @@ class TodoListsController < ApplicationController
   def index
     @user = current_user
     @todo_lists = current_user.todo_lists
-    HardWorker.perform_async()
+    #HardWorker.perform_async()
     respond_to do |format|
       format.html
       format.csv { send_data @todo_lists.to_csv }

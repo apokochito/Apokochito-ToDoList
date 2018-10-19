@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :todo_lists do
-    resources :todo_items
+    resources :todo_items do
+      member do
+        patch :complete
+      end
+    end
     #resources :users, only: :index
   end
   
