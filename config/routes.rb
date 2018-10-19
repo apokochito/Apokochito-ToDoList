@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     resources :todo_items
     #resources :users, only: :index
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
   root "todo_lists#index"
+
+  require 'sidekiq/web'
+  require 'sidekiq/cron/web'
+  mount Sidekiq::Web => '/sidekiq'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

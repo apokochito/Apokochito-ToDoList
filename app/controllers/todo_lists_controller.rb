@@ -4,8 +4,9 @@ class TodoListsController < ApplicationController
   # GET /todo_lists
   # GET /todo_lists.json
   def index
+    @user = current_user
     @todo_lists = current_user.todo_lists
-    #render json: {todo_lists: @todo_lists.to_json() }
+    HardWorker.perform_async()
     respond_to do |format|
       format.html
       format.csv { send_data @todo_lists.to_csv }
@@ -21,6 +22,8 @@ class TodoListsController < ApplicationController
   # GET /todo_lists/1
   # GET /todo_lists/1.json
   def show
+    @user = current_user
+    @todo_lists = @user.todo_lists
     @todo_items = current_user.todo_lists
     respond_to do |format|
      format.html
@@ -48,7 +51,7 @@ class TodoListsController < ApplicationController
   # POST /todo_lists.json
   def create
     @todo_list = current_user.todo_lists.create(todo_list_params)
-
+    @user = current_user
     respond_to do |format|
       if @todo_list.save
         format.html { redirect_to @todo_list, notice: 'Todo list was successfully created.' }
@@ -63,6 +66,7 @@ class TodoListsController < ApplicationController
   # PATCH/PUT /todo_lists/1
   # PATCH/PUT /todo_lists/1.json
   def update
+    #@todo_list = current_user.todo_lists(todo_list_params)
     respond_to do |format|
       if @todo_list.update(todo_list_params)
         format.html { redirect_to @todo_list, notice: 'Todo list was successfully updated.' }
@@ -77,6 +81,7 @@ class TodoListsController < ApplicationController
   # DELETE /todo_lists/1
   # DELETE /todo_lists/1.json
   def destroy
+    #@todo_list = current_user.todo_lists(todo_list_params)
     @todo_list.destroy
     respond_to do |format|
       format.html { redirect_to todo_lists_url, notice: 'Todo list was successfully destroyed.' }

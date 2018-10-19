@@ -1,0 +1,12 @@
+Welcome, <% @user.name %>
+
+<% @user.todo_lists.each do |list| %>
+  [<%= list.title %>]
+  <% list.todo_items.each do |item| %>
+    - <%= item.content %>
+<% end %>
+
+<% end %>
+
+
+Thanks for joining and have a great day!

@@ -10,5 +10,4 @@ class TodoList < ApplicationRecord
        end
     end
   end
-
 end
