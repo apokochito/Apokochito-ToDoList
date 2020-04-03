@@ -1,7 +1,5 @@
 # README
 
-* Configurations
-
 - Sidekiq
 - Redis
 - Devise
